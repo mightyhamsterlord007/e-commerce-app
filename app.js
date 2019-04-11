@@ -14,7 +14,7 @@ var flash = require('connect-flash');
 
 var MongoStore = require('connect-mongo')(session);
 
-mongoose.connect('mongodb://localhost/e-commerce' )
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true } )
         .then( () => {
           console.log('MONGODB CONNECTED')
         })
@@ -35,12 +35,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
   resave: true,
-  saveUinitialized: true,
-  secret: process.env.SESSION_SECRET,
-  store: new MongoStore({ url: process.env.MONGODB_URI, autoReconnect: true}),
+  saveUninitialized: true,
+  secret: 'SUPER-SECRET',
+  //store: new MongoStore({ url: process.env.MONGODB_URI, autoReconnect: true}),
   cookie: {
     secure: false, 
-    maxAge: process.env.COOKIE_LENGTH
+    maxAge: 365 * 24 * 60 * 60 * 1000
   }
 }))
 
