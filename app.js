@@ -36,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   resave: true,
   saveUninitialized: true,
-  secret: 'SUPER-SECRET',
+  secret: process.env.SESSION_SECRET,
   //store: new MongoStore({ url: process.env.MONGODB_URI, autoReconnect: true}),
   cookie: {
     secure: false, 
